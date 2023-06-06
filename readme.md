@@ -1,18 +1,23 @@
-# Todo
-- OSstr and str difference, is it ok to convert it one on one  
-- Error Handling   
-- Different file writing methods (bytes, buffers, str) and its advanteages   
-- Todo inside app  
-- Rename variable, dir and file 
+# AppIm - Create .desktop entry for your AppImage   
+A Cli tool to quickly add your AppImage to the Applications menu of your desktop environment, by generating a .desktop file as a Applications menu entry.
+Simple, yet has many customizable options for the sake of convenience.  
 
-# To learn 
-1. why like this, or else moved borrowed, error from compiler
-```rust 
-let app_name = PathBuf::from(app_file.clone());
-let app_name = app_name.file_stem().unwrap().to_str().unwrap();
-```    
-2. throw error when unwrap option, not result
+# Installation  
 
-# Learned 
-1. canoncalize absolute path, which verify file exist
+
+# Usage 
+ 
+# Build from source  
+clone 
+cargo build
+see justfile (Makefile alternatives) to help automate stuffs (you need just(path here) to run it) 
+
+# Contributing 
+- I really need mentoring on: app features, Rust best practices, implementations, or structures of the app.
+I'd be very appreciate if anyone could give any sort of guidances. 
+- Feels free to raise issues and suggest features.  
+- Don't forget to leave a star(path here) if it's helpful!
+
+
+
 

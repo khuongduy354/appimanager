@@ -77,7 +77,6 @@ fn main() -> Result<(), std::io::Error> {
                         // move (if needed) before create .desktop
                         if let Some(move_dir) = move_dir {
                             if move_dir.is_dir() {
-                                //TODO: dont know why dont run
                                 let move_file_path = move_dir.join(&app_file);
                                 std::fs::rename(&appimage_path, &move_file_path)
                                     .expect("cant move file");
