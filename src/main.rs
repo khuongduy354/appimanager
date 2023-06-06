@@ -1,4 +1,4 @@
-use std::{env, ffi::OsStr, fs::File, io::Write, path::PathBuf};
+use std::{env, fs::File, io::Write, path::PathBuf};
 
 use clap::{Parser, Subcommand};
 
@@ -26,19 +26,15 @@ enum Commands {
     },
 }
 //TODO: simplify arguments
-fn make_desktop_file(
-    dest_dir: &PathBuf,
-    app_path: &PathBuf,
-    app_name: &str,
-) -> Result<(), std::io::Error> {
-    //validate dest_dir
+fn make_desktop_file(dest_dir: &PathBuf, app_path: &PathBuf) -> Result<(), std::io::Error> {
+    //validate dest_dir, app_path
     if !dest_dir.is_dir() {
         unimplemented!()
     }
 
     //make .desktop path
-    let mut app_file = app_name.to_string();
-    app_file.push_str(".desktop");
+    let app_name = app_path.file_stem().unwrap().to_str().unwrap();
+    let app_file = format!("{}.desktop", app_name);
     let desktop_file_path = dest_dir.join(app_file);
 
     //write .desktop file
@@ -58,7 +54,6 @@ fn get_abs_path(path: &PathBuf) -> PathBuf {
             .join(path)
             .canonicalize()
             .unwrap()
-            .clone()
     } else {
         path.clone()
     }
@@ -73,8 +68,6 @@ fn main() -> Result<(), std::io::Error> {
             move_dest,
         } => {
             let app_file = appimage_path.file_name().expect("AppImage must be a file!");
-            let app_name = PathBuf::from(app_file.clone());
-            let app_name = app_name.file_stem().unwrap().to_str().unwrap();
 
             if appimage_path.is_file() {
                 let mut exec_path = get_abs_path(&appimage_path);
@@ -91,7 +84,7 @@ fn main() -> Result<(), std::io::Error> {
                                 exec_path = move_dest;
                             }
                         }
-                        make_desktop_file(&dest_dir, &exec_path, app_name)?;
+                        make_desktop_file(&dest_dir, &exec_path)?;
                     } else {
                         println!("Not an AppImage");
                     }
@@ -104,4 +97,23 @@ fn main() -> Result<(), std::io::Error> {
         }
     }
     Ok(())
+}
+
+#[test]
+fn test_make_desktop_file() {
+    //relative dir test
+    let dest_dir = get_abs_path(&PathBuf::from("."));
+    let app_path = get_abs_path(&PathBuf::from("./testasdf.AppImage"));
+
+    let result = make_desktop_file(&dest_dir, &app_path);
+    assert!(result.is_ok());
+
+    //check if .desktop file exists
+    let app_name = app_path.file_stem().unwrap().to_str().unwrap();
+    let app_file = format!("{}.desktop", app_name);
+    let desktop_file_path = dest_dir.join(app_file);
+    assert!(desktop_file_path.is_file());
+
+    //remove that file
+    assert!(std::fs::remove_file(desktop_file_path).is_ok());
 }
