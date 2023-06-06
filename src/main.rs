@@ -43,6 +43,18 @@ fn make_desktop_file(dest_dir: &PathBuf, app_path: &PathBuf, app_name: &str) {
     file.write_all(content.as_bytes())
         .expect("Unable to write data");
 }
+fn get_abs_path(path: &PathBuf) -> PathBuf {
+    if path.is_relative() {
+        env::current_dir()
+            .unwrap()
+            .join(path)
+            .canonicalize()
+            .unwrap()
+            .clone()
+    } else {
+        path.clone()
+    }
+}
 
 fn main() {
     let app = Cli::parse();
@@ -57,9 +69,7 @@ fn main() {
             let app_name = app_name.file_stem().unwrap().to_str().unwrap();
 
             if appimage_path.is_file() {
-                // TODO: relative or absolute check
-                let current_dir = env::current_dir().expect("cant get abs path");
-                let mut exec_path = current_dir.join(app_file);
+                let mut exec_path = get_abs_path(&appimage_path);
 
                 if let Some(ex) = appimage_path.extension() {
                     if ex == "AppImage" {
