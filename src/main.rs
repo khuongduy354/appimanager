@@ -46,14 +46,24 @@ fn make_desktop_file(dest_dir: &PathBuf, app_path: &PathBuf) -> Result<(), std::
     file.write_all(content.as_bytes())?;
     Ok(())
 }
+
 fn get_abs_path(path: &PathBuf) -> PathBuf {
-    // println!("path: {:?}", path);
     if path.is_relative() {
-        env::current_dir()
-            .unwrap()
-            .join(path)
-            .canonicalize()
-            .expect("cant get abs path")
+        if path.starts_with("~") {
+            //on linux so, this is acceptable
+            let path = path.strip_prefix("~").unwrap();
+            return env::home_dir()
+                .expect("cant get home dir")
+                .join(path)
+                .canonicalize()
+                .expect("cant get abs path");
+        } else {
+            env::current_dir()
+                .unwrap()
+                .join(path)
+                .canonicalize()
+                .expect("cant get abs path")
+        }
     } else {
         path.clone()
     }
@@ -67,6 +77,7 @@ fn main() -> Result<(), std::io::Error> {
             dest_dir,
             move_dir,
         } => {
+            let dest_dir = get_abs_path(&dest_dir);
             let app_file = appimage_path.file_name().expect("AppImage must be a file!");
 
             if appimage_path.is_file() {
