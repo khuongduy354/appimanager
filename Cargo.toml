@@ -6,6 +6,7 @@ description="A simple cli tool to create desktop entry from AppImage"
 authors = ["@khuongduy354"]
 repository="https://github.com/khuongduy354/appim"
 readme="readme.md"
+license="MIT"
 
 
 [dependencies]
