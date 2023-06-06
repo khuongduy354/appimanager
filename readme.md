@@ -1,5 +1,7 @@
 # AppIm - Create .desktop entry for your AppImage   
 ![rust](https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white)
+![git](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white)
+![cli](https://img.shields.io/badge/GNU%20Bash-4EAA25?style=for-the-badge&logo=GNU%20Bash&logoColor=white)
 
 A Cli tool to quickly add your AppImage to the Applications menu of your desktop environment
 
@@ -9,6 +11,8 @@ Simple, yet has many customizable options for the sake of convenience.
 
 
 # Installation  
+Cargo is required to run this app. After you installed cargo, run: 
+
 `cargo install appim`
 
 # Usage 
@@ -39,11 +43,11 @@ appim add myfile.AppImage -d "~/local/share"
 # Build from source   
 Steps: 
 ```rust
-git clone https://github.com/khuongduy354/appim.git 
+git clone https: //github.com/khuongduy354/appim.git 
 cd appim  
 cargo run //to build and run 
 cargo build //to build only
-cargo test // to test
+cargo test //to test
 ``` 
 Additional things:
 - justfile (Makefile alternatives) to help automate stuffs (you need [just](https://crates.io/crates/just) to run it)  
@@ -53,7 +57,7 @@ Additional things:
 - I really need mentoring on: app features, Rust best practices, implementations, or structures of the app.
 I'd be very appreciate if anyone could give any sort of guidances. 
 - Feels free to raise issues and suggest features.  
-- Don't forget to leave a star(path here) if it's helpful!
+- Don't forget to leave a star!
 
 
 
