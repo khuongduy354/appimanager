@@ -1,6 +1,12 @@
 # AppIm - Create .desktop entry for your AppImage   
-A Cli tool to quickly add your AppImage to the Applications menu of your desktop environment, by generating a .desktop file as a Applications menu entry.
-Simple, yet has many customizable options for the sake of convenience.  
+![rust](https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white)
+
+A Cli tool to quickly add your AppImage to the Applications menu of your desktop environment
+
+By generating a .desktop file as a Applications menu entry.
+
+Simple, yet has many customizable options for the sake of convenience.
+
 
 # Installation  
 `cargo install appim`
