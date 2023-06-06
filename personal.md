@@ -2,7 +2,7 @@
 <!-- - Todo inside app   -->
 <!-- - Rename variable, dir and file  --> 
 - test, integration  
-- .desktop template, icon option is enough
+- icon path option
 <!-- [Desktop Entry] -->
 <!-- Version=0.13.23  -->
 <!-- Type=Application -->

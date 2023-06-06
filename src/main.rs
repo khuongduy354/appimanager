@@ -2,7 +2,7 @@ use std::{env, fs::File, io::Write, path::PathBuf};
 
 use clap::{Parser, Subcommand};
 
-/// Simple program to greet a person
+/// Make a desktop entry for your AppImage
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 struct Cli {
