@@ -25,5 +25,6 @@ let app_name = app_name.file_stem().unwrap().to_str().unwrap();
 5. Error Handling
 
 # Learned 
-1. canoncalize absolute path, which verify file exist
+1. canoncalize absolute path, which verify file exist 
+2. canoncalize does not include linux ~
 
