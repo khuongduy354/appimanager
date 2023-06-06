@@ -47,12 +47,13 @@ fn make_desktop_file(dest_dir: &PathBuf, app_path: &PathBuf) -> Result<(), std::
     Ok(())
 }
 fn get_abs_path(path: &PathBuf) -> PathBuf {
+    // println!("path: {:?}", path);
     if path.is_relative() {
         env::current_dir()
             .unwrap()
             .join(path)
             .canonicalize()
-            .unwrap()
+            .expect("cant get abs path")
     } else {
         path.clone()
     }
@@ -76,10 +77,11 @@ fn main() -> Result<(), std::io::Error> {
                         // move (if needed) before create .desktop
                         if let Some(move_dir) = move_dir {
                             if move_dir.is_dir() {
-                                let move_file_path = get_abs_path(&move_dir.join(&app_file));
+                                //TODO: dont know why dont run
+                                let move_file_path = move_dir.join(&app_file);
                                 std::fs::rename(&appimage_path, &move_file_path)
                                     .expect("cant move file");
-                                exec_path = move_file_path;
+                                exec_path = get_abs_path(&move_file_path);
                             }
                         }
 
@@ -92,7 +94,7 @@ fn main() -> Result<(), std::io::Error> {
                     println!("File dont have extension");
                 }
             } else {
-                print!("File not found");
+                print!("AppImage not found");
             }
         }
     }
@@ -100,7 +102,7 @@ fn main() -> Result<(), std::io::Error> {
 }
 
 //TODO: seperate test
-// integration tests
+// integration tests consists of all option
 #[test]
 fn test_make_desktop_file() {
     //relative dir test

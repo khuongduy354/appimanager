@@ -8,4 +8,8 @@ move:
 
 here:
   cargo build
-  sudo target/debug/appim add ./test.AppImage -d "."
+  sudo target/debug/appim add ./test.AppImage -d "." 
+
+all:
+  cargo build
+  sudo target/debug/appim add ./test.AppImage -d "."  -m ".."
