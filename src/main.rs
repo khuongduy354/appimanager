@@ -111,8 +111,7 @@ fn main() -> Result<(), std::io::Error> {
     Ok(())
 }
 
-//TODO: seperate test
-// integration tests consists of all option
+//TODO: integration test, seperate test
 #[test]
 fn test_make_desktop_file() {
     //relative dir test
