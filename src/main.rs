@@ -22,10 +22,9 @@ enum Commands {
 
         /// Move appimage file to some location before creating desktop file   
         #[arg(short, long)]
-        move_dest: Option<PathBuf>,
+        move_dir: Option<PathBuf>,
     },
 }
-//TODO: simplify arguments
 fn make_desktop_file(dest_dir: &PathBuf, app_path: &PathBuf) -> Result<(), std::io::Error> {
     //validate dest_dir, app_path
     if !dest_dir.is_dir() {
@@ -65,7 +64,7 @@ fn main() -> Result<(), std::io::Error> {
         Commands::Add {
             appimage_path,
             dest_dir,
-            move_dest,
+            move_dir,
         } => {
             let app_file = appimage_path.file_name().expect("AppImage must be a file!");
 
@@ -74,16 +73,17 @@ fn main() -> Result<(), std::io::Error> {
 
                 if let Some(ex) = appimage_path.extension() {
                     if ex == "AppImage" {
-                        // move (if needed) before desktop Entry
-                        if let Some(move_dest) = move_dest {
-                            if move_dest.is_dir() {
-                                //TODO: handle  move_dest relative
-                                let move_dest = move_dest.join(&app_file);
-                                std::fs::rename(&appimage_path, &move_dest)
+                        // move (if needed) before create .desktop
+                        if let Some(move_dir) = move_dir {
+                            if move_dir.is_dir() {
+                                let move_file_path = get_abs_path(&move_dir.join(&app_file));
+                                std::fs::rename(&appimage_path, &move_file_path)
                                     .expect("cant move file");
-                                exec_path = move_dest;
+                                exec_path = move_file_path;
                             }
                         }
+
+                        // create .desktop
                         make_desktop_file(&dest_dir, &exec_path)?;
                     } else {
                         println!("Not an AppImage");
@@ -99,6 +99,8 @@ fn main() -> Result<(), std::io::Error> {
     Ok(())
 }
 
+//TODO: seperate test
+// integration tests
 #[test]
 fn test_make_desktop_file() {
     //relative dir test

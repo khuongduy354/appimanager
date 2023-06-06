@@ -10,7 +10,8 @@
 ```rust 
 let app_name = PathBuf::from(app_file.clone());
 let app_name = app_name.file_stem().unwrap().to_str().unwrap();
-```   
+```    
+2. throw error when unwrap option, not result
 
 # Learned 
 1. canoncalize absolute path
