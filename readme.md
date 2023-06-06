@@ -24,21 +24,21 @@ Arguments:
   <APPIMAGE_PATH>  Path of appimage file
 
 Options:
-  -d, --dest-dir <DEST_DIR>  Destination of desktop file [default: /usr/share/applications]
+  -d, --dest-dir <DEST_DIR>  Destination of desktop file [default: ~/.local/share/applications]
   -m, --move-dir <MOVE_DIR>  Move appimage file to some location before creating desktop file
   -h, --help                 Print help   
 
 Examples: 
-//create myfile.desktop in /usr/share/applications by default
+//create myfile.desktop in ~/.local/share/applications by default
 appim add myfile.AppImage     
  
 //Usually, after downloaded, the AppImage is in downloads folder,
 //hence you may want to use the -m flag to move the AppImage to your personal apps folder, before create .desktop entry 
 appim add myfile.AppImage -m "~/apps"  
-//myfile.AppImage is now in ~/apps, myfile.desktop also got created in /usr/share/applications with correct exec_path
+//myfile.AppImage is moved in ~/apps, myfile.desktop also got created with correct exec_path
 
-// create myfile.desktop in ~/local/share 
-appim add myfile.AppImage -d "~/local/share"  
+// create myfile.desktop in your/path/here 
+appim add myfile.AppImage -d "your/path/here"  
 ```
 # Build from source   
 Steps: 
