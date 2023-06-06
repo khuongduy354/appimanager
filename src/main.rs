@@ -17,7 +17,7 @@ enum Commands {
         appimage_path: PathBuf,
 
         /// Destination of desktop file
-        #[arg(short, long, default_value = "/usr/share/applications")]
+        #[arg(short, long, default_value = "~/.local/share/applications")]
         dest_dir: PathBuf,
 
         /// Move appimage file to some location before creating desktop file   
@@ -27,9 +27,9 @@ enum Commands {
 }
 fn make_desktop_file(dest_dir: &PathBuf, app_path: &PathBuf) -> Result<(), std::io::Error> {
     //validate dest_dir, app_path
-    if !dest_dir.is_dir() {
-        unimplemented!()
-    }
+    // if !dest_dir.is_dir() {
+    //     unimplemented!()
+    // }
 
     //make .desktop path
     let app_name = app_path.file_stem().unwrap().to_str().unwrap();
