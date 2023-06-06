@@ -26,22 +26,30 @@ enum Commands {
     },
 }
 //TODO: simplify arguments
-fn make_desktop_file(dest_dir: &PathBuf, app_path: &PathBuf, app_name: &str) {
+fn make_desktop_file(
+    dest_dir: &PathBuf,
+    app_path: &PathBuf,
+    app_name: &str,
+) -> Result<(), std::io::Error> {
+    //validate dest_dir
     if !dest_dir.is_dir() {
         unimplemented!()
     }
+
+    //make .desktop path
     let mut app_file = app_name.to_string();
     app_file.push_str(".desktop");
-
     let desktop_file_path = dest_dir.join(app_file);
-    let mut file = File::create(desktop_file_path).expect("Unable to create file");
+
+    //write .desktop file
+    let mut file = File::create(desktop_file_path)?;
     let content = format!(
         "[Desktop Entry]\nName={}\nExec={}\nType=Application\nCategories=Utility;",
         app_name,
         app_path.display(),
     );
-    file.write_all(content.as_bytes())
-        .expect("Unable to write data");
+    file.write_all(content.as_bytes())?;
+    Ok(())
 }
 fn get_abs_path(path: &PathBuf) -> PathBuf {
     if path.is_relative() {
@@ -56,7 +64,7 @@ fn get_abs_path(path: &PathBuf) -> PathBuf {
     }
 }
 
-fn main() {
+fn main() -> Result<(), std::io::Error> {
     let app = Cli::parse();
     match app.commands {
         Commands::Add {
@@ -83,7 +91,7 @@ fn main() {
                                 exec_path = move_dest;
                             }
                         }
-                        make_desktop_file(&dest_dir, &exec_path, app_name);
+                        make_desktop_file(&dest_dir, &exec_path, app_name)?;
                     } else {
                         println!("Not an AppImage");
                     }
@@ -95,4 +103,5 @@ fn main() {
             }
         }
     }
+    Ok(())
 }
