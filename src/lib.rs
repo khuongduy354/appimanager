@@ -1,4 +1,5 @@
 use std::{env, fs::File, io::Write, os::unix::prelude::PermissionsExt, path::PathBuf};
+#[derive(Debug)]
 pub struct DesktopEntry {
     pub idx: usize,
     pub path: PathBuf,
@@ -47,6 +48,7 @@ pub fn get_desk_list(dest_dir: &PathBuf) -> Result<Vec<DesktopEntry>, std::io::E
                 }
             }
         }
+        result.sort_by(|a, b| a.file_name.cmp(&b.file_name));
         Ok(result)
     } else {
         return Err(std::io::Error::new(

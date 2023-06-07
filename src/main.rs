@@ -25,6 +25,13 @@ enum Commands {
         /// Move appimage file to some location before creating desktop file   
         #[arg(short, long)]
         move_dir: Option<PathBuf>,
+        // /// Name of app
+        // #[arg(short, long)]
+        // name: Option<String>,
+        //
+        // /// Path to icon
+        // #[arg(short, long)]
+        // icon: Option<PathBuf>,
     },
     List,
     Delete {
@@ -40,6 +47,7 @@ fn main() -> Result<(), std::io::Error> {
         Commands::Add {
             appimage_path,
             move_dir,
+            app,
         } => subcommands::add(&dest_dir, &appimage_path, &move_dir)?,
         Commands::List => {
             subcommands::list(&dest_dir)?;

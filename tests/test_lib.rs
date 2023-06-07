@@ -1,6 +1,8 @@
 #[cfg(test)]
 mod test {
-    use appimanager::{extract_appname, is_exec, make_desktop_file, PathBufExtension};
+    use appimanager::{
+        extract_appname, get_desk_list, is_exec, make_desktop_file, PathBufExtension,
+    };
     use std::path::PathBuf;
 
     #[test]
@@ -29,6 +31,19 @@ mod test {
 
         //cleanup desktop file
         assert!(std::fs::remove_file(desktop_file_path).is_ok());
+    }
+
+    #[test]
+    fn test_get_desk_list() {
+        let desk_list = get_desk_list(&PathBuf::from("./tests/desktop-files")).unwrap();
+        let mut file_names = Vec::new();
+        for entry in desk_list {
+            file_names.push(entry.file_name);
+        }
+        assert_eq!(
+            file_names,
+            vec!["app1.desktop", "app2.desktop", "app3.desktop"]
+        );
     }
 
     //TODO: split subcommands, and test for each options
