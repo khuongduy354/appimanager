@@ -14,11 +14,11 @@
 <!-- Exec=Path/to/AppImage -->
 <!-- Actions=Editor -->
 ### FEATURES 
-- list all .desktop of a path 
+<!-- - list all .desktop of a path  -->
 - remove .desktop  
 - custom app name 
-- not just appimage,any executables 
-- array of apps 
+<!-- - not just appimage,any executables  -->
+<!-- - array of apps  -->
 
 
 # To learn 
@@ -41,5 +41,5 @@ bin crate cant use integration test, only function in lib.rs can be added
 5. implement absolute method for pathbuf  
 Implement extensionpathbuf trait for path buf which has a abspath fn  
 -> cannot override pathbuf from function or to, so that's the only way 
-
+6. clap global option, that subcommand can take
 

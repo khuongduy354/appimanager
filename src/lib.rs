@@ -1,4 +1,9 @@
 use std::{env, fs::File, io::Write, os::unix::prelude::PermissionsExt, path::PathBuf};
+pub struct DesktopEntry {
+    pub idx: usize,
+    pub path: PathBuf,
+    pub file_name: String,
+}
 pub trait PathBufExtension {
     fn get_abs_path(&self) -> PathBuf;
 }
@@ -25,6 +30,31 @@ impl PathBufExtension for PathBuf {
         }
     }
 }
+pub fn get_desk_list(dest_dir: &PathBuf) -> Result<Vec<DesktopEntry>, std::io::Error> {
+    let dest_dir = dest_dir.get_abs_path();
+    let mut result = Vec::new();
+    if dest_dir.is_dir() {
+        for (idx, entry) in dest_dir.read_dir()?.enumerate() {
+            let entry = entry?;
+            if let Some(ext) = entry.path().extension() {
+                if ext == "desktop" {
+                    let desk_entry = DesktopEntry {
+                        idx,
+                        path: entry.path(),
+                        file_name: entry.file_name().to_str().unwrap().to_string(),
+                    };
+                    result.push(desk_entry);
+                }
+            }
+        }
+        Ok(result)
+    } else {
+        return Err(std::io::Error::new(
+            std::io::ErrorKind::NotFound,
+            "Directory not found",
+        ));
+    }
+}
 pub fn extract_appname(path: &PathBuf) -> String {
     let app_name = path.file_stem().unwrap().to_str().unwrap();
     app_name.to_string()
@@ -48,7 +78,7 @@ pub fn make_desktop_file(dest_dir: &PathBuf, app_path: &PathBuf) -> Result<(), s
     //make .desktop path
     let app_name = extract_appname(&app_path);
     let app_file = format!("{}.desktop", app_name);
-    let desktop_file_path = dest_dir.join(app_file);
+    let desktop_file_path = dest_dir.join(&app_file);
 
     //write .desktop file
     let mut file = File::create(desktop_file_path)?;
@@ -58,6 +88,7 @@ pub fn make_desktop_file(dest_dir: &PathBuf, app_path: &PathBuf) -> Result<(), s
         app_path.display(),
     );
     file.write_all(content.as_bytes())?;
+    println!("{} created", &app_file);
     Ok(())
 }
 

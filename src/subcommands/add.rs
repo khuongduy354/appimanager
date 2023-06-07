@@ -1,4 +1,11 @@
-pub fn add(dest_dir: &PathBuf, app_image_path: &PathBuf, move_dir: Option<&PathBuf>) {
+use appimanager::{is_exec, make_desktop_file, PathBufExtension};
+use std::path::PathBuf;
+
+pub fn add(
+    dest_dir: &PathBuf,
+    appimage_path: &PathBuf,
+    move_dir: &Option<PathBuf>,
+) -> Result<(), std::io::Error> {
     let dest_dir = dest_dir.get_abs_path();
     let app_file = appimage_path.file_name().expect("AppImage must be a file!");
 
@@ -15,7 +22,12 @@ pub fn add(dest_dir: &PathBuf, app_image_path: &PathBuf, move_dir: Option<&PathB
 
         // create .desktop
         make_desktop_file(&dest_dir, &exec_path)?;
+
+        Ok(())
     } else {
-        print!("File not found, or not an executable!");
+        return Err(std::io::Error::new(
+            std::io::ErrorKind::Other,
+            "File not found or not executable!",
+        ));
     }
 }
