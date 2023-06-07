@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod test {
-    use appimanager::{extract_appname, get_abs_path, is_exec, make_desktop_file};
+    use appimanager::{extract_appname, is_exec, make_desktop_file, PathBufExtension};
     use std::path::PathBuf;
 
     #[test]
@@ -15,8 +15,8 @@ mod test {
     #[test]
     fn test_make_desktop_file() {
         // create .desktop file
-        let dest_dir = get_abs_path(&PathBuf::from("./tests"));
-        let app_path = get_abs_path(&PathBuf::from("./tests/sample.AppImage"));
+        let dest_dir = PathBuf::from("./tests").get_abs_path();
+        let app_path = PathBuf::from("./tests/sample.AppImage").get_abs_path();
 
         let result = make_desktop_file(&dest_dir, &app_path);
         assert!(result.is_ok());
@@ -30,4 +30,6 @@ mod test {
         //cleanup desktop file
         assert!(std::fs::remove_file(desktop_file_path).is_ok());
     }
+
+    //TODO: split subcommands, and test for each options
 }

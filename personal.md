@@ -38,5 +38,8 @@ let app_name = app_name.file_stem().unwrap().to_str().unwrap();
 3. rust look for (integration) tests dir at top-level (same level as src),
 bin crate cant use integration test, only function in lib.rs can be added
 4. everything should work in absolute path 
-5. implement absolute path struct AbsPath(PathBuf)
+5. implement absolute method for pathbuf  
+Implement extensionpathbuf trait for path buf which has a abspath fn  
+-> cannot override pathbuf from function or to, so that's the only way 
+
 
