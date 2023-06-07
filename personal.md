@@ -1,8 +1,10 @@
 # Todo
 <!-- - Todo inside app   -->
 <!-- - Rename variable, dir and file  --> 
-- test, integration  
+- test, integration   
+- implement Wrapper type that is absolute path 
 - icon path option
+- extract appname function
 <!-- [Desktop Entry] -->
 <!-- Version=0.13.23  -->
 <!-- Type=Application -->
@@ -33,4 +35,8 @@ let app_name = app_name.file_stem().unwrap().to_str().unwrap();
 # Learned 
 1. canoncalize absolute path, which verify file exist 
 2. canoncalize does not include linux ~
+3. rust look for (integration) tests dir at top-level (same level as src),
+bin crate cant use integration test, only function in lib.rs can be added
+4. everything should work in absolute path 
+5. implement absolute path struct AbsPath(PathBuf)
 
