@@ -1,12 +1,21 @@
 [package]
-name = "appim"
-version = "1.0.2"
+name = "appimanager"
+version = "1.0.0"
 edition = "2021" 
-description="A simple cli tool to create desktop entry from AppImage" 
+description="A simple cli to create and manage desktop entries from executables" 
 authors = ["@khuongduy354"]
 repository="https://github.com/khuongduy354/appim"
 readme="readme.md"
-license="MIT"
+caterogies=["command-line-interface"] 
+keywords = [
+  "argument",
+  "cli",
+  "arg",
+  "appimage",
+  "executables", 
+  "desktop entry"
+]
+license="MIT" 
 
 
 [dependencies]

@@ -10,8 +10,14 @@
 <!-- Comment=Application Description -->
 <!-- TryExec=Path/to/AppImage -->
 <!-- Exec=Path/to/AppImage -->
-Icon=Path/to/AppImage.icon
 <!-- Actions=Editor -->
+### FEATURES 
+- list all .desktop of a path 
+- remove .desktop  
+- custom app name 
+- not just appimage,any executables 
+- array of apps 
+
 
 # To learn 
 1. why like this, or else moved borrowed, error from compiler

@@ -6,4 +6,8 @@
 - Default dest changed to ~/.local/share/applications, but encounter problem HOME_DIR problem. 
 # 1.0.2  
 - Fixed HOME_DIR
-- Tested.
+- Tested. 
+
+# 1.0.3
+- Am i stupid or not, not only appimage is executables 
+
