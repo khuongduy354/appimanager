@@ -52,8 +52,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "appim"
-version = "1.0.2"
+name = "appimanager"
+version = "1.0.0"
 dependencies = [
  "clap",
 ]
