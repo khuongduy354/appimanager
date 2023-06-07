@@ -1,5 +1,8 @@
 use std::{env, fs::File, io::Write, os::unix::prelude::PermissionsExt, path::PathBuf};
-
+pub fn extract_appname(path: &PathBuf) -> String {
+    let app_name = path.file_stem().unwrap().to_str().unwrap();
+    app_name.to_string()
+}
 pub fn make_desktop_file(dest_dir: &PathBuf, app_path: &PathBuf) -> Result<(), std::io::Error> {
     //TODO: validate dest_dir, app_path
     // if !dest_dir.is_dir() {
@@ -9,7 +12,7 @@ pub fn make_desktop_file(dest_dir: &PathBuf, app_path: &PathBuf) -> Result<(), s
     //TODO: absolute path
 
     //make .desktop path
-    let app_name = app_path.file_stem().unwrap().to_str().unwrap();
+    let app_name = extract_appname(&app_path);
     let app_file = format!("{}.desktop", app_name);
     let desktop_file_path = dest_dir.join(app_file);
 
@@ -24,7 +27,6 @@ pub fn make_desktop_file(dest_dir: &PathBuf, app_path: &PathBuf) -> Result<(), s
     Ok(())
 }
 
-//TODO: relative?
 pub fn get_abs_path(path: &PathBuf) -> PathBuf {
     if path.is_relative() {
         if path.starts_with("~") {

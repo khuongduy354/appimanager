@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod test {
-    use appimanager::{get_abs_path, is_exec, make_desktop_file};
+    use appimanager::{extract_appname, get_abs_path, is_exec, make_desktop_file};
     use std::path::PathBuf;
 
     #[test]
@@ -22,7 +22,7 @@ mod test {
         assert!(result.is_ok());
 
         //check if .desktop file exists
-        let app_name = app_path.file_stem().unwrap().to_str().unwrap();
+        let app_name = extract_appname(&app_path);
         let app_file = format!("{}.desktop", app_name);
         let desktop_file_path = dest_dir.join(app_file);
         assert!(desktop_file_path.is_file());
