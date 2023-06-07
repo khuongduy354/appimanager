@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod test {
     use appimanager::{
-        extract_appname, get_desk_list, is_exec, make_desktop_file, PathBufExtension,
+        extract_appname, get_desk_list, is_exec, make_desktop_file, AddConfig, PathBufExtension,
     };
     use std::path::PathBuf;
 
@@ -20,7 +20,14 @@ mod test {
         let dest_dir = PathBuf::from("./tests").get_abs_path();
         let app_path = PathBuf::from("./tests/sample.AppImage").get_abs_path();
 
-        let result = make_desktop_file(&dest_dir, &app_path);
+        let result = make_desktop_file(
+            &dest_dir,
+            &app_path,
+            AddConfig {
+                icon: None,
+                name: None,
+            },
+        );
         assert!(result.is_ok());
 
         //check if .desktop file exists

@@ -1,10 +1,12 @@
-use appimanager::{is_exec, make_desktop_file, PathBufExtension};
+use appimanager::{is_exec, make_desktop_file, AddConfig, PathBufExtension};
 use std::path::PathBuf;
 
 pub fn add(
     dest_dir: &PathBuf,
     appimage_path: &PathBuf,
     move_dir: &Option<PathBuf>,
+    name: Option<String>,
+    icon: Option<PathBuf>,
 ) -> Result<(), std::io::Error> {
     let dest_dir = dest_dir.get_abs_path();
     let app_file = appimage_path.file_name().expect("AppImage must be a file!");
@@ -21,7 +23,7 @@ pub fn add(
         }
 
         // create .desktop
-        make_desktop_file(&dest_dir, &exec_path)?;
+        make_desktop_file(&dest_dir, &exec_path, AddConfig { icon, name })?;
 
         Ok(())
     } else {

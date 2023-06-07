@@ -1,9 +1,27 @@
-use std::{env, fs::File, io::Write, os::unix::prelude::PermissionsExt, path::PathBuf};
+use std::{
+    env,
+    fs::File,
+    io::Write,
+    os::unix::prelude::PermissionsExt,
+    path::{Path, PathBuf},
+};
 #[derive(Debug)]
 pub struct DesktopEntry {
     pub idx: usize,
     pub path: PathBuf,
     pub file_name: String,
+}
+
+pub struct AddConfig {
+    pub icon: Option<PathBuf>,
+    pub name: Option<String>,
+}
+impl AddConfig {
+    fn parse(&self, icon_default: PathBuf, name_default: String) -> (PathBuf, String) {
+        let icon = self.icon.as_ref().unwrap_or(&icon_default);
+        let name = self.name.as_ref().unwrap_or(&name_default);
+        (icon.get_abs_path().clone(), name.clone())
+    }
 }
 pub trait PathBufExtension {
     fn get_abs_path(&self) -> PathBuf;
@@ -61,7 +79,11 @@ pub fn extract_appname(path: &PathBuf) -> String {
     let app_name = path.file_stem().unwrap().to_str().unwrap();
     app_name.to_string()
 }
-pub fn make_desktop_file(dest_dir: &PathBuf, app_path: &PathBuf) -> Result<(), std::io::Error> {
+pub fn make_desktop_file(
+    dest_dir: &PathBuf,
+    app_path: &PathBuf,
+    config: AddConfig,
+) -> Result<(), std::io::Error> {
     if !dest_dir.is_dir() {
         return Err(std::io::Error::new(
             std::io::ErrorKind::NotFound,
@@ -77,17 +99,20 @@ pub fn make_desktop_file(dest_dir: &PathBuf, app_path: &PathBuf) -> Result<(), s
     let dest_dir = dest_dir.get_abs_path();
     let app_path = app_path.get_abs_path();
 
-    //make .desktop path
-    let app_name = extract_appname(&app_path);
+    //prepare content
+
+    let (icon_path, app_name) = config.parse(PathBuf::from(""), extract_appname(&app_path));
+
     let app_file = format!("{}.desktop", app_name);
     let desktop_file_path = dest_dir.join(&app_file);
 
     //write .desktop file
     let mut file = File::create(desktop_file_path)?;
     let content = format!(
-        "[Desktop Entry]\nName={}\nExec={}\nType=Application\nCategories=Utility;",
+        "[Desktop Entry]\nName={}\nExec={}\nType=Application\nCategories=Utility;\nIcon={}",
         app_name,
         app_path.display(),
+        icon_path.display()
     );
     file.write_all(content.as_bytes())?;
     println!("{} created", &app_file);

@@ -42,4 +42,13 @@ bin crate cant use integration test, only function in lib.rs can be added
 Implement extensionpathbuf trait for path buf which has a abspath fn  
 -> cannot override pathbuf from function or to, so that's the only way 
 6. clap global option, that subcommand can take
+7. as ref trick 
+```rust
+    fn parse(&self, icon_default: PathBuf, name_default: String) -> (PathBuf, String) {
+// as_ref convert &Option<T> to Option<&T>
+        let icon = self.icon.as_ref().unwrap_or(&icon_default);
+        let name = self.name.as_ref().unwrap_or(&name_default);
+        (icon.clone(), name.clone())
+    }
+```
 
