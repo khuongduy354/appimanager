@@ -1,10 +1,43 @@
-use std::{
-    env,
-    fs::File,
-    io::Write,
-    os::unix::prelude::PermissionsExt,
-    path::{Path, PathBuf},
-};
+use clap::{Parser, Subcommand};
+pub mod subcommands;
+use std::{env, fs::File, io::Write, os::unix::prelude::PermissionsExt, path::PathBuf};
+/// Make a desktop entry for your AppImage
+#[derive(Parser, Debug)]
+#[command(author, version, about, long_about = None)]
+pub struct Cli {
+    #[command(subcommand)]
+    pub commands: Commands,
+
+    /// Destination path that store all .desktop files
+    #[arg(short, long, default_value = "~/.local/share/applications")]
+    pub dest_dir: PathBuf,
+}
+
+#[derive(Debug, Subcommand)]
+pub enum Commands {
+    Add {
+        ///Path of appimage file
+        appimage_path: PathBuf,
+
+        /// Move appimage file to some location before creating desktop file   
+        #[arg(short, long)]
+        move_dir: Option<PathBuf>,
+
+        /// Name of app
+        #[arg(short, long)]
+        name: Option<String>,
+
+        /// Path to icon
+        #[arg(short, long)]
+        icon: Option<PathBuf>,
+    },
+    List,
+    Delete {
+        /// Delete desktop file by index (displayed by list subcommand)
+        #[arg(short, long)]
+        idx: usize,
+    },
+}
 #[derive(Debug)]
 pub struct DesktopEntry {
     pub idx: usize,

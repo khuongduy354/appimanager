@@ -1,4 +1,4 @@
-use appimanager::{is_exec, make_desktop_file, AddConfig, PathBufExtension};
+use crate::{is_exec, make_desktop_file, AddConfig, PathBufExtension};
 use std::path::PathBuf;
 
 pub fn add(

@@ -1,4 +1,4 @@
-use appimanager::{get_desk_list, PathBufExtension};
+use crate::{get_desk_list, PathBufExtension};
 use std::path::PathBuf;
 pub fn list(dest_dir: &PathBuf) -> Result<(), std::io::Error> {
     let dest_dir = dest_dir.get_abs_path();
