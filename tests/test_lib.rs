@@ -27,8 +27,8 @@ mod test {
                 icon: None,
                 name: None,
             },
-        );
-        assert!(result.is_ok());
+        )
+        .unwrap();
 
         //check if .desktop file exists
         let app_name = extract_appname(&app_path);
@@ -52,6 +52,4 @@ mod test {
             vec!["app1.desktop", "app2.desktop", "app3.desktop"]
         );
     }
-
-    //TODO: split subcommands, and test for each options
 }
