@@ -15,8 +15,9 @@ pub fn add(
         let mut exec_path = appimage_path.get_abs_path();
         // move (if needed) before create .desktop
         if let Some(move_dir) = move_dir {
+            let move_dir = move_dir.get_abs_path();
             if move_dir.is_dir() {
-                let move_file_path = move_dir.get_abs_path().join(&app_file);
+                let move_file_path = move_dir.join(&app_file);
                 std::fs::rename(&appimage_path, &move_file_path).expect("cant move file");
                 exec_path = move_file_path.get_abs_path();
                 println!("Moved executable to: {}", exec_path.display());
