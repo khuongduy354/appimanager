@@ -1,10 +1,10 @@
 [package]
 name = "appimanager"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2021" 
 description="A simple cli to create and manage desktop entries from executables" 
 authors = ["@khuongduy354"]
-repository="https://github.com/khuongduy354/appim"
+repository="https://github.com/khuongduy354/appimanager"
 readme="readme.md"
 categories=["command-line-interface"] 
 keywords = [
