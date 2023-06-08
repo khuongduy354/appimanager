@@ -43,7 +43,7 @@ Examples:
 
 3. appimanager delete 0 // note: .desktop index starts from 0 
 
-4. set custom directory of desktop files instead of ~/.local/share/applications (not recommended) for subcommands  
+4. set custom directory of desktop files instead of ~/.local/share/applications (not recommended)  
 
 appimanager -d /path/here/ add myfile.AppImage //create myfile.desktop in /path/here/
 appimanager -d /path/here/ list //list .desktop in /path/here
