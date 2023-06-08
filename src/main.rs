@@ -1,4 +1,4 @@
-use appimanager::{subcommands, Cli, Commands, PathBufExtension};
+use appim::{subcommands, Cli, Commands, PathBufExtension};
 use clap::Parser;
 // pub mod subcommands;
 
