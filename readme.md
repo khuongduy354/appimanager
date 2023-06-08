@@ -1,50 +1,56 @@
-# AppIm - Create .desktop entry for your AppImage   
+# AppImanager - Create and manage .desktop entry <br> for your AppImages or any Executables.    
 ![rust](https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white)
 ![git](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white)
 ![cli](https://img.shields.io/badge/GNU%20Bash-4EAA25?style=for-the-badge&logo=GNU%20Bash&logoColor=white)
 
-A Cli tool to quickly add your AppImage to the Applications menu of your desktop environment
-
-By generating a .desktop file as a Applications menu entry.
+A Cli tool to quickly add your AppImage (or anything checked as executables) to the Applications menu of your desktop environment
+by generating a .desktop file as an entry.
 
 Simple, yet has many customizable options for the sake of convenience.
 
 
 # Installation  
-Cargo is required to run this app. After you installed cargo, run: 
+Cargo is required to run this app. After installed cargo, run: 
 
-`cargo install appim`
+`cargo install appimanager`
 
 # Usage 
 ```rust 
-appim add --help
-Usage: appim add [OPTIONS] <APPIMAGE_PATH>
+A simple cli to create and manage desktop entries from executables
 
-Arguments:
-  <APPIMAGE_PATH>  Path of appimage file
+Usage: appimanager [OPTIONS] <COMMAND>
+
+Commands:
+  add     Generate .desktop file
+  list    List .desktop files 
+  delete  Delete .desktop file by index (displayed by list subcommand) 
+  help    Print this message or the help of the given subcommand(s)
 
 Options:
-  -d, --dest-dir <DEST_DIR>  Destination of desktop file [default: ~/.local/share/applications]
-  -m, --move-dir <MOVE_DIR>  Move appimage file to some location before creating desktop file
-  -h, --help                 Print help   
+  -d, --dest-dir <DEST_DIR>  Destination path that store all .desktop files  (default=~/.local/share/applications)
+  -h, --help                 Print help
+  -V, --version              Print version
 
 Examples: 
-//create myfile.desktop in ~/.local/share/applications by default
-appim add myfile.AppImage     
- 
-//Usually, after downloaded, the AppImage is in downloads folder,
-//hence you may want to use the -m flag to move the AppImage to your personal apps folder, before create .desktop entry 
-appim add myfile.AppImage -m "~/apps"  
-//myfile.AppImage is moved in ~/apps, myfile.desktop also got created with correct exec_path
+1. appimanager add myfile.AppImage 
 
-// create myfile.desktop in your/path/here 
-appim add myfile.AppImage -d "your/path/here"  
+-m: move executable to a path before generating .desktop file   
+-d: Destination path that store all .desktop files (default=~/.local/share/applications)
+-n: name property of to be generated .desktop file 
+-i: icon (path) property of to be generated .desktop file 
+ 
+
+2. appimanager list 
+-d: Destination path that store all .desktop files (default=~/.local/share/applications)
+
+3. appimanager delete 0 //.desktop index starts from 0 
+-d: Destination path that store all .desktop files (default=~/.local/share/applications)
 ```
 # Build from source   
 Steps: 
 ```rust
-git clone https: //github.com/khuongduy354/appim.git 
-cd appim  
+git clone https: //github.com/khuongduy354/appimanager.git 
+cd appimanager  
 cargo run //to build and run 
 cargo build //to build only
 cargo test //to test
@@ -59,6 +65,8 @@ I'd be very appreciate if anyone could give any sort of guidances.
 - Feels free to raise issues and suggest features.  
 - Don't forget to leave a star!
 
+# Notes 
+- For cargo: i published a crate called appim before, which is also the previous name of this repo, then i realized that not only AppImage is executable :) , this crate changes a bit, more features and has test coverage.
 
 
 
