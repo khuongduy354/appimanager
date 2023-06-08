@@ -37,10 +37,7 @@ pub enum Commands {
     List,
 
     /// Delete .desktop file by index (displayed by list subcommand)
-    Delete {
-        #[arg(short, long)]
-        idx: usize,
-    },
+    Delete { idx: usize },
 }
 #[derive(Debug)]
 pub struct DesktopEntry {

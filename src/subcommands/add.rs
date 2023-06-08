@@ -19,6 +19,7 @@ pub fn add(
                 let move_file_path = move_dir.get_abs_path().join(&app_file);
                 std::fs::rename(&appimage_path, &move_file_path).expect("cant move file");
                 exec_path = move_file_path.get_abs_path();
+                println!("Moved executable to: {}", exec_path.display());
             }
         }
 
