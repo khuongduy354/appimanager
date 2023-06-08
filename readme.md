@@ -35,16 +35,21 @@ Examples:
 1. appimanager add myfile.AppImage 
 
 -m: move executable to a path before generating .desktop file   
--d: Destination path that store all .desktop files (default=~/.local/share/applications)
 -n: name property of to be generated .desktop file 
 -i: icon (path) property of to be generated .desktop file 
  
 
 2. appimanager list 
--d: Destination path that store all .desktop files (default=~/.local/share/applications)
 
-3. appimanager delete 0 //.desktop index starts from 0 
--d: Destination path that store all .desktop files (default=~/.local/share/applications)
+3. appimanager delete 0 // note: .desktop index starts from 0 
+
+4. set custom desktop files instead of ~/.local/share/applications (not recommended) for subcommands  
+
+appimanager -d /path/here/ add myfile.AppImage //create myfile.desktop in /path/here/
+appimanager -d /path/here/ list //list .desktop in /path/here
+appimanager -d /path/here/ delete 0 //delete index 0 .desktop in /path/here
+
+
 ```
 # Build from source   
 Steps: 
