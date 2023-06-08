@@ -6,7 +6,7 @@ description="A simple cli to create and manage desktop entries from executables"
 authors = ["@khuongduy354"]
 repository="https://github.com/khuongduy354/appim"
 readme="readme.md"
-caterogies=["command-line-interface"] 
+categories=["command-line-interface"] 
 keywords = [
   "argument",
   "cli",

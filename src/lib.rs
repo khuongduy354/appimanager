@@ -15,6 +15,7 @@ pub struct Cli {
 
 #[derive(Debug, Subcommand)]
 pub enum Commands {
+    /// Generate .desktop file
     Add {
         ///Path of appimage file
         appimage_path: PathBuf,
@@ -31,16 +32,18 @@ pub enum Commands {
         #[arg(short, long)]
         icon: Option<PathBuf>,
     },
+
+    /// List .desktop files in dest_dir (default=~/.local/share/applications)
     List,
+
+    /// Delete .desktop file by index (displayed by list subcommand)
     Delete {
-        /// Delete desktop file by index (displayed by list subcommand)
         #[arg(short, long)]
         idx: usize,
     },
 }
 #[derive(Debug)]
 pub struct DesktopEntry {
-    pub idx: usize,
     pub path: PathBuf,
     pub file_name: String,
 }
@@ -86,12 +89,11 @@ pub fn get_desk_list(dest_dir: &PathBuf) -> Result<Vec<DesktopEntry>, std::io::E
     let dest_dir = dest_dir.get_abs_path();
     let mut result = Vec::new();
     if dest_dir.is_dir() {
-        for (idx, entry) in dest_dir.read_dir()?.enumerate() {
+        for entry in dest_dir.read_dir()? {
             let entry = entry?;
             if let Some(ext) = entry.path().extension() {
                 if ext == "desktop" {
                     let desk_entry = DesktopEntry {
-                        idx,
                         path: entry.path(),
                         file_name: entry.file_name().to_str().unwrap().to_string(),
                     };
