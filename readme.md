@@ -12,7 +12,7 @@ Simple, yet has many customizable options for the sake of convenience.
 # Installation  
 Cargo is required to run this app. After installed cargo, run: 
 
-`cargo install appim`
+`cargo install appimanager`
 
 # Usage 
 ```rust 
@@ -22,12 +22,12 @@ Usage: appimanager [OPTIONS] <COMMAND>
 
 Commands:
   add     Generate .desktop file
-  list    List .desktop files in dest_dir (default=~/.local/share/applications)
-  delete  Delete .desktop file by index (displayed by list subcommand)
+  list    List .desktop files 
+  delete  Delete .desktop file by index (displayed by list subcommand) 
   help    Print this message or the help of the given subcommand(s)
 
 Options:
-  -d, --dest-dir <DEST_DIR>  Destination path that store all .desktop files [default: ~/.local/share/applications]
+  -d, --dest-dir <DEST_DIR>  Destination path that store all .desktop files  (default=~/.local/share/applications)
   -h, --help                 Print help
   -V, --version              Print version
 
@@ -35,22 +35,22 @@ Examples:
 1. appimanager add myfile.AppImage 
 
 -m: move executable to a path before generating .desktop file   
--d: path of directory storing your .desktop files
+-d: Destination path that store all .desktop files (default=~/.local/share/applications)
 -n: name property of to be generated .desktop file 
 -i: icon (path) property of to be generated .desktop file 
  
 
 2. appimanager list 
-
+-d: Destination path that store all .desktop files (default=~/.local/share/applications)
 
 3. appimanager delete 0 //.desktop index starts from 0 
-
+-d: Destination path that store all .desktop files (default=~/.local/share/applications)
 ```
 # Build from source   
 Steps: 
 ```rust
-git clone https: //github.com/khuongduy354/appim.git 
-cd appim  
+git clone https: //github.com/khuongduy354/appimanager.git 
+cd appimanager  
 cargo run //to build and run 
 cargo build //to build only
 cargo test //to test
@@ -66,7 +66,7 @@ I'd be very appreciate if anyone could give any sort of guidances.
 - Don't forget to leave a star!
 
 # Notes 
-- For cargo: i published a crate called appim before, but then realized that not only AppImage is executable :) , this crate changes a bit, more subcommands and has test coverage.
+- For cargo: i published a crate called appim before, which is also the previous name of this repo, then i realized that not only AppImage is executable :) , this crate changes a bit, more features and has test coverage.
 
 
 
