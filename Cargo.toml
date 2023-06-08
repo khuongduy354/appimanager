@@ -13,8 +13,12 @@ keywords = [
   "arg",
   "appimage",
   "executables", 
-  "desktop entry"
-]
+  "desktop-entry",
+  "desktop",
+  "entry",
+"entries"
+  ]
+
 license="MIT" 
 
 
