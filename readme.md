@@ -1,3 +1,6 @@
+# THIS CRATE IS DEPRECATED, please switch to https://crates.io/crates/appimanager 
+# THE DOC BELOW IS FOR APP IMANAGER
+
 # AppImanager - Create and manage .desktop entry <br> for your AppImages or any Executables.    
 ![rust](https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white)
 ![git](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white)
